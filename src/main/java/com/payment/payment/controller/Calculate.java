@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class Calculate {
     @Autowired
     private CalculateService calculateService;
     @PostMapping("/calculacte")
-    public double getPayment(@RequestParam String start, @RequestParam String end, @RequestParam int salary){
-        int countWeekend = calculateService.countWeekend(calculateService.getCalendar(start),calculateService.getCalendar(end));
-        return calculateService.getPayment(salary, countWeekend);
+    public double getPayment(@RequestParam(required = false) Integer countDays,@RequestParam(required = false) String start, @RequestParam(required = false) String end, @RequestParam int salary){
+        return calculateService.choiceOfCalculationMethod(countDays, start, end, salary);
     }
 }
